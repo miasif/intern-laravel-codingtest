@@ -9,20 +9,19 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::query();
+        $keyword = $request->input('search');
 
-        // if ($request->filled('search')) {
-        //     $query->where('name', 'like', '%' . $request->input('search') . '%');
-        // }
-
-        $products = $query->get();
+        $products = Product::where('name', 'like', '%' . $keyword . '%')
+        ->orWhere('description', 'like', '%' . $keyword . '%')
+        ->orWhere('price', 'like', '%' . $keyword . '%')
+        ->get();
 
         return view('product.view', compact('products'));
     }
 
     public function searchProduct(Request $request)
     {
-        
+
     }
-    
+
 }

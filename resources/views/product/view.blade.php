@@ -19,8 +19,8 @@
                         </div>
                     </form>
                     <div id="product-wrapper">
-                        @include('product.producttable')    
-                    </div>     
+                        @include('product.producttable')
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,10 +28,17 @@
             $(document).ready(function () {
                 // Function to fetch and display data
                 function fetchData(searchTerm, route) {
-                    $.ajax({
-                        type: "GET",
-                        url: route,
-                    });
+                   $.ajax({
+            url: "http://127.0.0.1:8000/products/search",
+            type: 'GET',
+            data: { search: keyword },
+            success: function (data) {
+                $('#products-table tbody').html(data);
+            },
+            error: function () {
+                alert('An error occurred.');
+            }
+        });
                 }
             });
         </script>
