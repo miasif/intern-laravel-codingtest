@@ -21,6 +21,11 @@ class ProductController extends Controller
 
     public function searchProduct(Request $request)
     {
+        $keyword = $request->input('keyword');
+
+        $products = Product::where('name', 'like', '%' . $keyword . '%')->orWhere('description', 'like', '%' . $keyword . '%')->orWhere('price', 'like', '%' . $keyword . '%')->get();
+
+        return response()->json($products);
 
     }
 
