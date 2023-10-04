@@ -1,0 +1,1 @@
+<img src="{{ asset('img/logo.svg') }}" style="{{ $styles }}" alt="">
