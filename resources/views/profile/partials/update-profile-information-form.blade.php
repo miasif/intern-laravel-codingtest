@@ -1,4 +1,9 @@
 <section>
+    @if (session('status') === 'Profile updated successfully!')
+        <div class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md">
+        {{ __('Profile updated successfully!') }}
+        </div>
+    @endif
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Profile Information') }}
@@ -13,18 +18,18 @@
         @csrf
     </form>
 
-    <form method="post" action="" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" type="text" name='name' class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name='email' type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
